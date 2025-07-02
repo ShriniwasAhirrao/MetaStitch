@@ -727,4 +727,3 @@ class LogParser:
                 "error": error_message
             }
         }
-
