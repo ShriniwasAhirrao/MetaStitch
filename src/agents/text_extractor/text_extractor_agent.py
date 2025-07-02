@@ -71,7 +71,10 @@ class TextExtractorAgent(BaseAgent):
             
             # Step 2: Parse structured content using appropriate parser
             parser = self.parsers[file_metadata.file_type]
-            structured_elements = await parser.parse(raw_content, file_metadata)
+            # Adjusted to call parse with file_path as per parser interface
+            parse_result = parser.parse(file_path)
+            # Extract structured elements from parse_result
+            structured_elements = parse_result.get('content', {}).get('structured_elements', [])
             self.logger.info(f"Parsed {len(structured_elements)} structured elements")
             
             # Step 3: Extract additional metadata
